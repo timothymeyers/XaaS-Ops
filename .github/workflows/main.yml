@@ -16,8 +16,6 @@ jobs:
           creds: ${{secrets.AZURE_CREDENTIALS}}
           environment: 'AzureUSGovernment'
       - run: |
-          cd missionlz
-
           az deployment sub create \
             --name myMlzDeployment \
             --location usgovvirginia \
