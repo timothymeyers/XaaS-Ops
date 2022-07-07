@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          repository: Azure/missionlz.git
+          repository: Azure/missionlz
       - uses: azure/Login@v1
         with:
           creds: ${{secrets.AZURE_CREDENTIALS}}
