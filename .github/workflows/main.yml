@@ -15,5 +15,6 @@ jobs:
           registry: registry1.dso.mil/ironbank
           username: ${{ secrets.IRONBANK_USERNAME }}
           password: ${{ secrets.IRONBANK_PASSWORD }}
-
-          # docker pull registry1.dso.mil/ironbank/microsoft/azure/mission-landing-zone:mlz-v2022.01.0
+      - name: Pull MLZ
+        run: |
+          docker pull registry1.dso.mil/ironbank/microsoft/azure/mission-landing-zone:mlz-v2022.01.0
