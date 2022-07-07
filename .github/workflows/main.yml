@@ -19,7 +19,7 @@ jobs:
         run: |
           az deployment sub create \
             --name myMlz${{ github.run_number }} \
-            --location usgovvirginia \
+            --location usgovarizona \
             --template-file ./src/bicep/mlz.bicep \
             --parameters \
               resourcePrefix="tmlz${{ github.run_number }}" \
@@ -37,6 +37,6 @@ jobs:
           az deployment sub create \
             -n myMlzT3${{ github.run_number }} \
             -f tier3.bicep \
-            -l usgovvirginia \
+            -l usgovarizona \
             --parameters \
               resourcePrefix="tmlzt3${{ github.run_number }}"
