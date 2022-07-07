@@ -28,7 +28,7 @@ jobs:
 
       - name: Deploy Tier3 Workload Spoke
         run: |
-          cd add-ons
+          cd ./src/bicep/add-ons
           az deployment sub show \
             --name myMlzDeployment-${{ github.run_number }} \
             --query properties.outputs > ./deploymentVariables.json
