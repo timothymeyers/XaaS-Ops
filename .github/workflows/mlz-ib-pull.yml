@@ -1,4 +1,4 @@
-name: Deploy XaaS Ops Environment
+name: Deploy XaaS Ops Environment (IB Tmp)
 
 on:
   workflow_dispatch:
