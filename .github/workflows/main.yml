@@ -8,13 +8,21 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - uses: actions/checkout@v2
-      - name: Login to IronBank
-        uses: docker/login-action@v2
+      - uses: actions/checkout@v3
         with:
-          registry: registry1.dso.mil/ironbank
-          username: ${{ secrets.IRONBANK_USERNAME }}
-          password: ${{ secrets.IRONBANK_PASSWORD }}
-      - name: Pull MLZ
-        run: |
-          docker pull registry1.dso.mil/ironbank/microsoft/azure/mission-landing-zone:mlz-v2022.01.0
+          repository: https://github.com/Azure/missionlz.git
+      - uses: azure/Login@v1
+        with:
+          creds: ${{secrets.AZURE_CREDENTIALS}}
+          environment: 'AzureUSGovernment'
+      - run: |
+          cd missionlz
+
+          az deployment sub create \
+            --name myMlzDeployment \
+            --location usgovvirginia \
+            --template-file ./src/bicep/mlz.bicep \
+            --parameters \
+              resourcePrefix="tmmMlz" \
+              deployPolicy="true" \
+              policy="IL5"
