@@ -15,12 +15,28 @@ jobs:
         with:
           creds: ${{secrets.AZURE_CREDENTIALS}}
           environment: 'AzureUSGovernment'
-      - run: |
+      - name: Deploy Mission Landing Zone
+        run: |
           az deployment sub create \
-            --name myMlzDeployment \
+            --name myMlzDeployment-${{ github.run_number }} \
             --location usgovvirginia \
             --template-file ./src/bicep/mlz.bicep \
             --parameters \
-              resourcePrefix="tmmMlz" \
+              resourcePrefix="tmlz${{ github.run_number }}" \
               deployPolicy="true" \
               policy="IL5"
+
+      - name: Deploy Tier3 Workload Spoke
+        run: |
+          cd add-ons
+          az deployment sub show \
+            --name myMlzDeployment-${{ github.run_number }} \
+            --query properties.outputs > ./deploymentVariables.json
+
+          cd tier3
+          az deployment sub create \
+            -n myMlzDeploymentTier3-${{ github.run_number }} \
+            -f tier3.bicep \
+            -l usgovvirginia \
+            --parameters \
+              resourcePrefix="tmlzt3${{ github.run_number }}"
