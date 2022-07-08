@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          repository: Azure/missionlz
+          repository: timothymeyers/missionlz
       - uses: azure/Login@v1
         with:
           creds: ${{secrets.AZURE_CREDENTIALS}}
@@ -34,7 +34,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          repository: Azure/missionlz
+          repository: timothymeyers/missionlz
+          ref: tmm/tier3-bicep-improvements
       - uses: azure/Login@v1
         with:
           creds: ${{secrets.AZURE_CREDENTIALS}}
