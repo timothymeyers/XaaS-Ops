@@ -84,11 +84,11 @@ jobs:
             --template-file dsvm.bicep \
             --parameters \
               adminUsername=azureadmin \
-              vmName=dsvmmlz4 \
+              vmName=dsvm-${{ github.run_number }} \
               authenticationType=password \
               virtualNetworkName=$(az deployment sub show --name myMlzT3${{ github.run_number }} --query properties.outputs.virtualNetworkName.value | tr -d \") \
-              subnetName=subnetDSVM \
+              subnetName=subnetDSVM${{ github.run_number }} \
               subnetIPRange='10.0.125.32/29' \
-              networkSecurityGroupName=NSGDSVM \
+              networkSecurityGroupName=NSGDSVM${{ github.run_number }} \
               adminPasswordOrKey=${{secrets.DSVM_PASSWORD}}
 
