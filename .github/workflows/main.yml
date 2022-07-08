@@ -9,7 +9,6 @@ jobs:
     
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/checkout@v3
         with:
           repository: Azure/missionlz
       - uses: azure/Login@v1
@@ -44,6 +43,7 @@ jobs:
               resourcePrefix=tmlzt3${{ github.run_number }} \
               virtualNetworkAddressPrefix='10.0.125.0/25'
 
+      - uses: actions/checkout@v3
       - name: Deploy DSVM into T3 Spoke
         run: |
           pwd
