@@ -76,13 +76,13 @@ jobs:
           ls -la dsvm.bicep
 
           az deployment group create \
-            --resource-group $(az deployment sub show --name myMlzT3${{ github.run_number }} --query properties.outputs.resourceGroupName.value) \
+            --resource-group $(az deployment sub show --name myMlzT3${{ github.run_number }} --query properties.outputs.resourceGroupName.value | tr -d \") \
             --template-file dsvm.bicep \
             --parameters \
               adminUsername=azureadmin \
               vmName=dsvmmlz4 \
               authenticationType=password \
-              virtualNetworkName=$(az deployment sub show --name myMlzT3${{ github.run_number }} --query properties.outputs.virtualNetworkName.value) \
+              virtualNetworkName=$(az deployment sub show --name myMlzT3${{ github.run_number }} --query properties.outputs.virtualNetworkName.value | tr -d \") \
               subnetName=subnetDSVM \
               subnetIPRange='10.0.125.32/29' \
               networkSecurityGroupName=NSGDSVM \
