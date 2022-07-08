@@ -1,4 +1,4 @@
-name: Deploy XaaS Ops Environment (IB Tmp)
+name: IronBank pull
 
 on:
   workflow_dispatch:
