@@ -27,6 +27,19 @@ jobs:
               deployPolicy="true" \
               policy="IL5"
 
+  deploy-t3-spoke:
+    runs-on: ubuntu-latest
+    needs: deploy-mlz
+    
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          repository: Azure/missionlz
+      - uses: azure/Login@v1
+        with:
+          creds: ${{secrets.AZURE_CREDENTIALS}}
+          environment: 'AzureUSGovernment'
+
       - name: Deploy Tier3 Workload Spoke
         run: |
           cd ./src/bicep/add-ons
@@ -43,11 +56,23 @@ jobs:
               resourcePrefix=tmlzt3${{ github.run_number }} \
               virtualNetworkAddressPrefix='10.0.125.0/25'
 
+
+  deploy-t3-dsvm:
+    runs-on: ubuntu-latest
+    needs: deploy-t3-spoke
+    
+    steps:
+      - uses: actions/checkout@v3
+      - uses: azure/Login@v1
+        with:
+          creds: ${{secrets.AZURE_CREDENTIALS}}
+          environment: 'AzureUSGovernment'
+
       - uses: actions/checkout@v3
       - name: Deploy DSVM into T3 Spoke
         run: |
           pwd
-          cd ~/src/bicep
+          cd ./src/bicep
           ls -la dsvm.bicep
 
           az deployment group create \
