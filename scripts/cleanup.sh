@@ -4,7 +4,7 @@ NO=$1
 
 echo $NO
 
-az group delete -n workload-rg-workload-mlz --yes --no-wait \
+az group delete -n tmlzt3$NO-xo$NO-rg-xo$NO-mlz --yes --no-wait \
 && az group delete -n tmlz$NO-rg-sharedServices-mlz --yes --no-wait \
 && az group delete -n tmlz$NO-rg-operations-mlz --yes --no-wait  \
 && az group delete -n tmlz$NO-rg-identity-mlz --yes --no-wait  \
@@ -14,6 +14,4 @@ az group delete -n workload-rg-workload-mlz --yes --no-wait \
 && az deployment sub delete -n workload-to-hub-vnet-peering \
 && az monitor diagnostic-settings subscription delete \
   -n log-hub-sub-activity-to-tmlz$NO-log-operations-mlz --yes
-
-
-
+  
