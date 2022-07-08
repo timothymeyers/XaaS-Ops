@@ -53,10 +53,10 @@ jobs:
             -n myMlzT3${{ github.run_number }} \
             -f tier3.bicep \
             -l usgovarizona \
-            --parameters \              
-              workloadName=xo${{ github.run_number }} \
-              workloadShortName=xo${{ github.run_number }} \
-              resourcePrefix=tmlzt3${{ github.run_number }} \
+            --parameters \
+              workloadName=t3xo \
+              workloadShortName=t3xo${{ github.run_number }} \
+              resourcePrefix=tmlz${{ github.run_number }} \
               virtualNetworkAddressPrefix='10.0.125.0/25'
 
 
