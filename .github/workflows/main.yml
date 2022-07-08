@@ -9,12 +9,14 @@ jobs:
     
     steps:
       - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
         with:
           repository: Azure/missionlz
       - uses: azure/Login@v1
         with:
           creds: ${{secrets.AZURE_CREDENTIALS}}
           environment: 'AzureUSGovernment'
+
       - name: Deploy Mission Landing Zone
         run: |
           az deployment sub create \
@@ -39,4 +41,27 @@ jobs:
             -f tier3.bicep \
             -l usgovarizona \
             --parameters \
-              resourcePrefix="tmlzt3${{ github.run_number }}"
+              resourcePrefix="tmlzt3${{ github.run_number }} \
+              workloadName=xaasops \
+              workloadShortName=xo \
+              virtualNetworkAddressPrefix='10.0.125.0/25' "
+
+      - name: Deploy DSVM into T3 Spoke
+        run: |
+          pwd
+          cd ~/src/bicep
+          ls -la dsvm.bicep
+
+          az deployment group create \
+            --resource-group $(az deployment sub show --name myMlzT3${{ github.run_number }} --query properties.outputs.resourceGroupName.value) \
+            --template-file dsvm.bicep \
+            --parameters \
+              adminUsername=azureadmin \
+              vmName=dsvmmlz4 \
+              authenticationType=password \
+              virtualNetworkName=$(az deployment sub show --name myMlzT3${{ github.run_number }} --query properties.outputs.virtualNetworkName.value) \
+              subnetName=subnetDSVM \
+              subnetIPRange='10.0.125.32/29' \
+              networkSecurityGroupName=NSGDSVM \
+              adminPasswordOrKey=${{secrets.DSVM_PASSWORD}}
+
