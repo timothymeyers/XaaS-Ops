@@ -77,6 +77,7 @@ jobs:
           ls -la dsvm.bicep
 
           az deployment group create \
+            --name mlMlzT3DSVM${{ github.run_number }} \
             --resource-group $(az deployment sub show --name myMlzT3${{ github.run_number }} --query properties.outputs.resourceGroupName.value | tr -d \") \
             --template-file dsvm.bicep \
             --parameters \
