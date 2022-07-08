@@ -74,9 +74,7 @@ jobs:
       - uses: actions/checkout@v3
       - name: Deploy DSVM into T3 Spoke
         run: |
-          pwd
           cd ./src/bicep
-          ls -la dsvm.bicep
 
           az deployment group create \
             --name mlMlzT3DSVM${{ github.run_number }} \
