@@ -41,10 +41,10 @@ jobs:
             -f tier3.bicep \
             -l usgovarizona \
             --parameters \
-              resourcePrefix="tmlzt3${{ github.run_number }} \
+              resourcePrefix=tmlzt3${{ github.run_number }} \
               workloadName=xaasops \
               workloadShortName=xo \
-              virtualNetworkAddressPrefix='10.0.125.0/25' "
+              virtualNetworkAddressPrefix='10.0.125.0/25'
 
       - name: Deploy DSVM into T3 Spoke
         run: |
